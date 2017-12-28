@@ -13,12 +13,17 @@ public class MergeController {
     @Autowired
     private MergeService mergeService;
 
-    @GetMapping("merge/{inputDirectory}/{outputDirectory}")
-    private String mergeFilesInDirectory(@PathVariable(value = "inputDirectory") String inputDirectory,
-                                         @PathVariable(value = "outputDirectory") String outputDirectory,
-                                         @RequestParam(required = false) Map map){
+    @GetMapping("merge/{inputDirectory}")
+    private String mergeFilesInDirectory(@PathVariable(value = "inputDirectory") String inputDirectory){
+        try {
 
-        return mergeService.mergeFilesInDirectory(inputDirectory, outputDirectory);
+            mergeService.mergeFilesInDirectory(inputDirectory);
+            return "OK!";
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "FAILED!";
+        }
 
     }
 
